@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- tailwind css -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- flowbite -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div
+      x-data="productList()"
+      x-init="loadCategories()"
+      class="flex items-center justify-center py-4 md:py-8 flex-wrap"
+    >
+      <template x-for="category in categories">
+        <div class="flex items-center justify-center py-4 md:py-8 flex-wrap">
+          <button
+            type="button"
+            x-text="category.name"
+            :data-filter="category.slug"
+            class="filter-btn text-blue-700 hover:text-white border border-blue-600 bg-white hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-full text-base font-medium px-5 py-2.5 text-center me-3 mb-3"
+          ></button>
+        </div>
+      </template>
+    </div>
+
+    <!-- products -->
+    <div class="container mx-auto mb-8">
+      <div
+        x-data="productList()"
+        x-init="loadProducts()"
+        class="grid grid-cols-2 md:grid-cols-3 gap-4"
+      >
+        <template x-for="product in products">
+          <div
+            :class="product.category"
+            class="gallery-item border border-gray-500 p-5"
+          >
+            <img
+              class="h-auto max-w-full rounded-lg"
+              :src="product.thumbnail"
+              alt=""
+            />
+            <h2 class="font-bold text-blue-500" x-text="product.title"></h2>
+            <p x-text="`$${product.price}`"></p>
+            <p x-text="product.category"></p>
+          </div>
+        </template>
+      </div>
+    </div>
+
+    <!-- <div x-data="productList()" x-init="loadProducts()">
+      <h1>Product List</h1>
+
+      <div class="grid grid-cols-2 gap-4">
+        <template x-for="product in products">
+          <div class="p-4 border">
+            <h2 class="font-bold" x-text="product.title"></h2>
+            <p x-text="`$${product.price}`"></p>
+            <img :src="product.thumbnail" class="w-32 h-32 object-cover mt-2" />
+          </div>
+        </template>
+      </div>
+    </div> -->
+
+    <!-- alpine js -->
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+    <!-- flowbite -->
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+    <!-- javascript -->
+    <script src="/script.js"></script>
+  </body>
+</html>
