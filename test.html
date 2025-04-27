@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- tailwind css -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- flowbite -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div x-data="productList()" x-init="loadProducts(); loadCategories()">
+      <div class="gallery grid grid-cols-2 gap-4">
+        <template x-for="product in visibleProducts" :key="product.id">
+          <div class="gallery-item" :class="product.category">
+            <img :src="product.thumbnail" alt="" class="w-full h-auto" />
+            <h2 x-text="product.title"></h2>
+          </div>
+        </template>
+      </div>
+
+      <button
+        @click="loadMore()"
+        x-show="visibleCount < products.length"
+        class="mt-4 px-4 py-2 bg-blue-500 text-white rounded"
+      >
+        Load More
+      </button>
+    </div>
+
+    <!-- alpine js -->
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+    <!-- flowbite -->
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+    <!-- javascript -->
+    <script src="/sr.js"></script>
+  </body>
+</html>

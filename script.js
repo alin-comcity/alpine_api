@@ -1,8 +1,14 @@
 function productList() {
     return {
-      products: [],
+      products: [],      
+      visibleCount: 8,
       categories: [],
       error: '',
+
+      get visibleProducts() {
+        return this.products.slice(0, this.visibleCount);
+      },
+
       async loadProducts() {
         try {
           const res = await fetch('https://dummyjson.com/products?limit=100');
@@ -14,7 +20,7 @@ function productList() {
           console.error(err);
         } 
        },
-      //'https://dummyjson.com/products/categories'
+
       async loadCategories() {
         try {
           const res = await fetch('https://dummyjson.com/products/categories');
@@ -34,13 +40,21 @@ function categoryClick() {
     filterButtons.forEach((btn) => {
         btn.addEventListener("click", () => {
             
-            const filter = btn.getAttribute("data-filter");
+          const filter = btn.getAttribute("data-filter");
             
-            // Filter items
-            const galleryItems = document.querySelectorAll(".gallery-item");
-            // console.log(galleryItems);
-            galleryItems.forEach((item) => {
-              if (filter === "all" || item.classList.contains(filter)) {
+          // Filter items
+          const galleryItems = document.querySelectorAll(".gallery-item");            
+
+          // Update button styles
+          filterButtons.forEach((b) => {
+            b.classList.remove("bg-blue-700", "text-white");
+            b.classList.add("bg-white", "text-base");
+          });
+          btn.classList.add("bg-blue-700", "text-white");
+          btn.classList.remove("bg-white", "text-base");
+
+          galleryItems.forEach((item) => {
+            if (filter === "all" || item.classList.contains(filter)) {
                 item.classList.remove("hidden");
               } else {
                 item.classList.add("hidden");
